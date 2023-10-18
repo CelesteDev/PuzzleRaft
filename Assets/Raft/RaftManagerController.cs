@@ -10,32 +10,58 @@ public class RaftManagerController : MonoBehaviour
 
     private bool _isBuilding = false;
 
+    [SerializeField] int _raftWidth;
+    [SerializeField] int _raftHeight;
+
+    //boolean matrix representing wether raft is built on a specific tile
+    private bool[,] _isTileBuilt;
+
+    public void SetIsBuiltTile(int x, int y, bool state)
+    {
+        _isTileBuilt[x, y] = state;
+    }
+
     public void Awake()
     {
         _raftPieceGhostObject.SetActive(false);
+
+        _isTileBuilt = new bool[_raftWidth,_raftHeight];
     }
 
-    public void TriggerBuildMode()
+    public bool AttemptTriggerBuildMode()
     {
         if (!_isBuilding)
         {
             _isBuilding = true;
+
+            _raftPieceGhostObject.SetActive(true);
+
+            return true;
         }
 
-        _raftPieceGhostObject.SetActive(true);
+        return false;
     }
 
     //TODO: check if build valid
-    //TODO: snap building to a grid
     public void AttemptBuild()
     {
         if (_isBuilding)
         {
-            Vector2 buildPos = _raftPieceGhostObject.transform.position;
+            Vector2 buildPos = _raftPieceGhostObject.transform.localPosition;
 
-            Instantiate(_raftPiecePrefab, buildPos, Quaternion.identity, this.transform);
-        }
+            int tilePosX = (int)buildPos.x;
+            int tilePosY = (int)buildPos.y;
 
-        _raftPieceGhostObject.SetActive(false);
+            Debug.Log("Attempting to build at tile x:" + tilePosX + ", y:" + tilePosY);
+
+            if(tilePosX >= 0 && tilePosY >= 0 && tilePosX < _raftWidth && tilePosY < _raftHeight && !_isTileBuilt[tilePosX, tilePosY])
+            {
+                Instantiate(_raftPiecePrefab, _raftPieceGhostObject.transform.position, Quaternion.identity, transform);
+
+                _raftPieceGhostObject.SetActive(false);
+
+                _isBuilding = false;
+            }
+        }   
     }
 }
