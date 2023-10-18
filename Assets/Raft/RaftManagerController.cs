@@ -56,11 +56,36 @@ public class RaftManagerController : MonoBehaviour
 
             if(tilePosX >= 0 && tilePosY >= 0 && tilePosX < _raftWidth && tilePosY < _raftHeight && !_isTileBuilt[tilePosX, tilePosY])
             {
-                Instantiate(_raftPiecePrefab, _raftPieceGhostObject.transform.position, Quaternion.identity, transform);
+                bool isValid = false;
 
-                _raftPieceGhostObject.SetActive(false);
+                if(tilePosX >= 1 && _isTileBuilt[tilePosX - 1, tilePosY])
+                {
+                    isValid = true;
+                }
 
-                _isBuilding = false;
+                if (tilePosX < _raftWidth - 1 && _isTileBuilt[tilePosX + 1, tilePosY])
+                {
+                    isValid = true;
+                }
+
+                if (tilePosY >= 1 && _isTileBuilt[tilePosX, tilePosY - 1])
+                {
+                    isValid = true;
+                }
+
+                if (tilePosY < _raftHeight - 1 && _isTileBuilt[tilePosX, tilePosY + 1])
+                {
+                    isValid = true;
+                }
+
+                if (isValid)
+                {
+                    Instantiate(_raftPiecePrefab, _raftPieceGhostObject.transform.position, Quaternion.identity, transform);
+
+                    _raftPieceGhostObject.SetActive(false);
+
+                    _isBuilding = false;
+                }
             }
         }   
     }
