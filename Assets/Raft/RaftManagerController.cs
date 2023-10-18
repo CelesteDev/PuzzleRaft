@@ -31,9 +31,9 @@ public class RaftManagerController : MonoBehaviour
     {
         if (_isBuilding)
         {
-            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 buildPos = _raftPieceGhostObject.transform.position;
 
-            Instantiate(_raftPiecePrefab, mousePos, Quaternion.identity, this.transform);
+            Instantiate(_raftPiecePrefab, buildPos, Quaternion.identity, this.transform);
         }
 
         _raftPieceGhostObject.SetActive(false);

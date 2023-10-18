@@ -7,11 +7,14 @@ public class PieceGhostController : MonoBehaviour
 {
     [SerializeField] RaftManagerController _raftController;
 
-    //TODO: make the piece snap to a grid
     private void Update()
     {
         //make the object follow the mouse pos
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        //TODO: un-hardcode the tiling offset (0.5 here)
+        mousePos.x = Mathf.Floor(mousePos.x + 0.5f);
+        mousePos.y = Mathf.Floor(mousePos.y + 0.5f);
 
         this.transform.position = mousePos;
 
