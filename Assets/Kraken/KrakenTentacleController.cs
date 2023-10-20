@@ -11,7 +11,7 @@ public class KrakenTentacleController : MonoBehaviour
         StartCoroutine("DespawnTentacle");
     }
 
-    private IEnumerable DespawnTentacle()
+    private IEnumerator DespawnTentacle()
     {
         while (true)
         {

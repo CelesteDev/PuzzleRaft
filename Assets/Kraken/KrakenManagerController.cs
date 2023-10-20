@@ -10,11 +10,11 @@ public class KrakenManagerController : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine("KrakenSpawnCoroutine");
+        StartCoroutine(KrakenSpawnCoroutine());
     }
 
     //spawn kraken somewhere random every time timer runs out
-    private IEnumerable KrakenSpawnCoroutine()
+    private IEnumerator KrakenSpawnCoroutine()
     {
         while (true)
         {
@@ -26,8 +26,6 @@ public class KrakenManagerController : MonoBehaviour
 
             //spawn the kraken parented to this
             Instantiate(_krakenWarningPrefab, pos + (Vector2)transform.position, Quaternion.identity, transform);
-
-            StartCoroutine("KrakenSpawnCoroutine");
         }
     }
 }

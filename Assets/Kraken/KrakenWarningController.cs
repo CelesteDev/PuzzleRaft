@@ -13,7 +13,7 @@ public class KrakenWarningController : MonoBehaviour
         StartCoroutine("SpawnKrakenTentacle");
     }
 
-    private IEnumerable SpawnKrakenTentacle()
+    private IEnumerator SpawnKrakenTentacle()
     {
         while (true)
         {
