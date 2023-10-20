@@ -30,9 +30,4 @@ public class ObstacleManagerController : MonoBehaviour
             Instantiate(_obstaclePrefab, pos + (Vector2) transform.position, Quaternion.identity, transform);
         }
     }
-
-    private void spawnEnemy()
-    {
-        
-    }
 }
